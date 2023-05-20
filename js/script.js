@@ -32,7 +32,7 @@ applyFill(slider.querySelector("input"));
 function applyFill(slider) {
 	const percentage = (100 * (slider.value - slider.min)) / (slider.max - slider.min);
 	const bg = `linear-gradient(90deg, ${sliderProps.fill} ${percentage}%, ${sliderProps.background} ${percentage +
-			0.1}%)`;
+		0.1}%)`;
 	slider.style.background = bg;
 	sliderValue.setAttribute("data-length", slider.value);
 }
@@ -105,12 +105,12 @@ resultContainer.addEventListener("mousemove", e => {
 		left: resultContainer.getBoundingClientRect().left,
 		top: resultContainer.getBoundingClientRect().top,
 	};
-	if(generatedPassword){
+	if (generatedPassword) {
 		copyBtn.style.opacity = '1';
 		copyBtn.style.pointerEvents = 'all';
 		copyBtn.style.setProperty("--x", `${e.x - resultContainerBound.left}px`);
 		copyBtn.style.setProperty("--y", `${e.y - resultContainerBound.top}px`);
-	}else{
+	} else {
 		copyBtn.style.opacity = '0';
 		copyBtn.style.pointerEvents = 'none';
 	}
@@ -174,12 +174,12 @@ function generatePassword(length, lower, upper, number, symbol) {
 }
 
 // function that handles the checkboxes state, so at least one needs to be selected. The last checkbox will be disabled.
-function disableOnlyCheckbox(){
+function disableOnlyCheckbox() {
 	let totalChecked = [uppercaseEl, lowercaseEl, numberEl, symbolEl].filter(el => el.checked)
 	totalChecked.forEach(el => {
-		if(totalChecked.length == 1){
+		if (totalChecked.length == 1) {
 			el.disabled = true;
-		}else{
+		} else {
 			el.disabled = false;
 		}
 	})
@@ -190,3 +190,41 @@ function disableOnlyCheckbox(){
 		disableOnlyCheckbox()
 	})
 })
+
+// Datos de configuración para la solicitud
+const endpoint = 'https://api.openai.com/v1/chat/completions';
+// const apiKey = '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'; // Joaco D.
+// const apiKey = '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'; // Lauti
+const apiKey = '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'; // Benja
+
+const model = 'gpt-3.5-turbo';
+
+// Función para hacer la solicitud al API de ChatGPT
+async function chatGPT(message) {
+	const response = await fetch(endpoint, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${apiKey}`
+		},
+		body: JSON.stringify({
+			model,
+			messages: [{ role: 'system', content: 'You are a helpful assistant.' }, { role: 'user', content: message }]
+		})
+	});
+
+	const data = await response.json();
+	console.log(data);
+	return data.choices[0].message.content;
+}
+
+// Ejemplo de uso
+async function runChat() {
+	const baseMessage =
+		"You will act as a password generator. You will answer only with the password. I will tell you in spanish how I want the passowrd to be: "
+	const userMessage = baseMessage + document.getElementById("prompt").value;
+	const response = await chatGPT(userMessage);
+	console.log(response);
+
+	document.getElementById("chatgpt").innerHTML = response;
+}

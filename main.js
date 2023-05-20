@@ -56,7 +56,9 @@ async function chatGPT(message) {
 
 // Ejemplo de uso
 async function runChat() {
-    const userMessage = 'Hola, ¿cómo estás?';
+    const baseMessage =
+        "You will act as a password generator. You will only answer with the password. I will tell you in spanish how I want the passowrd to be: "
+    const userMessage = baseMessage + document.getElementById("prompt").value;
     const response = await chatGPT(userMessage);
     console.log(response);
 

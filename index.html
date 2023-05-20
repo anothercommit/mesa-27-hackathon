@@ -2,44 +2,64 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Password Generator</title>
-  <script src="main.js"></script>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.5/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 </head>
 
 <body>
-  <h1>Generador de contraseñas básico</h1>
+    <div class="container">
+        <h2 class="title">Generador de contraseñas</h2>
+        <div class="result">
+            <div class="result__title field-title">Generated Password</div>
+            <div class="result__info right">click to copy</div>
+            <div class="result__info left">copied</div>
+            <div class="result__viewbox" id="result">Genere la contraseña</div>
+            <button id="copy-btn" style="--x: 0; --y: 0"><i class="far fa-copy"></i></button>
+        </div>
+        <div class="length range__slider" data-min="4" data-max="32">
+            <div class="length__title field-title" data-length='0'>Largo:</div>
+            <input id="slider" type="range" min="4" max="32" value="16" />
+        </div>
 
-  <label for="length">Largo de la contraseña:</label>
-  <input type="number" id="length" min="1" max="50" value="8">
-  <br>
+        <div class="settings">
+            <span class="settings__title field-title">settings</span>
+            <div class="setting">
+                <input type="checkbox" id="uppercase" checked />
+                <label for="uppercase">Incluir mayusculas</label>
+            </div>
+            <div class="setting">
+                <input type="checkbox" id="lowercase" checked />
+                <label for="lowercase">Incluir minusculas</label>
+            </div>
+            <div class="setting">
+                <input type="checkbox" id="number" checked />
+                <label for="number">Incluir numeros</label>
+            </div>
+            <div class="setting">
+                <input type="checkbox" id="symbol" />
+                <label for="symbol">Incluir simbolos</label>
+            </div>
+        </div>
 
-  <label for="mayusculas">Usar mayúsculas?</label>
-  <input type="checkbox" id="mayusculas">
-  <br>
+        <button class="btn generate" id="generate">Generar Contraseña</button>
 
-  <label for="numeros">Usar números?</label>
-  <input type="checkbox" id="numeros">
-  <br>
+        <h2 class="title">Generador de contraseñas por texto</h1>
 
-  <label for="simbolos">Usar símbolos?</label>
-  <input type="checkbox" id="simbolos">
-  <br>
+            <input type="text" id="prompt" size="38" placeholder="quiero que incluya minusculas y numeros.">
 
-  <button onclick="generatePassword()">Generar</button>
+            <p id="chatgpt" style="color: white"></p>
 
-  <br>
-  <!-- <label for="password">Resultado:</label> -->
-  <input type="text" id="password" readonly>
+            <button class="btn generate" onclick="runChat()">Generar</button>
 
-  <h1>Generador de contraseñas dinámico</h1>
+    </div>
 
-  <button onclick="runChat()">Generar</button>
+    <script src="js/script.js"></script>
 
-  <p id="chatgpt">Hola</p>
 </body>
 
 </html>
