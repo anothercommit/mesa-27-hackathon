@@ -29,8 +29,10 @@ function generatePassword() {
 
 // Datos de configuración para la solicitud
 const endpoint = 'https://api.openai.com/v1/chat/completions';
-// const apiKey = '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';
-const apiKey = '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';
+// const apiKey = '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'; // Joaco D.
+// const apiKey = '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'; // Lauti
+const apiKey = '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'; // Benja
+
 const model = 'gpt-3.5-turbo';
 
 // Función para hacer la solicitud al API de ChatGPT
@@ -57,4 +59,6 @@ async function runChat() {
     const userMessage = 'Hola, ¿cómo estás?';
     const response = await chatGPT(userMessage);
     console.log(response);
+
+    document.getElementById("chatgpt").value = response;
 }
