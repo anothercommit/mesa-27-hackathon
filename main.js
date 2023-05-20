@@ -60,5 +60,5 @@ async function runChat() {
     const response = await chatGPT(userMessage);
     console.log(response);
 
-    document.getElementById("chatgpt").value = response;
+    document.getElementById("chatgpt").innerHTML = response;
 }
