@@ -26,3 +26,35 @@ function generatePassword() {
 
     document.getElementById("password").value = password;
 }
+
+// Datos de configuración para la solicitud
+const endpoint = 'https://api.openai.com/v1/chat/completions';
+// const apiKey = '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';
+const apiKey = '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';
+const model = 'gpt-3.5-turbo';
+
+// Función para hacer la solicitud al API de ChatGPT
+async function chatGPT(message) {
+    const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model,
+            messages: [{ role: 'system', content: 'You are a helpful assistant.' }, { role: 'user', content: message }]
+        })
+    });
+
+    const data = await response.json();
+    console.log(data);
+    return data.choices[0].message.content;
+}
+
+// Ejemplo de uso
+async function runChat() {
+    const userMessage = 'Hola, ¿cómo estás?';
+    const response = await chatGPT(userMessage);
+    console.log(response);
+}
