@@ -1,24 +1,23 @@
 function generatePassword() {
-    const abcMinusculas = "abcdefghijklmnñopqrstuvwxyz";
     const abcMayusculas = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
     const numeros = "0123456789";
     const simbolos = "$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
-    let caracteres = abcMinusculas;
+    let caracteres = "abcdefghijklmnñopqrstuvwxyz";
 
-    let usarMayusculas = document.getElementById("numeros").checked;
-    let usarNumeros = document.getElementById("simbolos").checked;
-    let usarSimbolos = document.getElementById("mayuscula").checked;
+    let usarMayusculas = document.getElementById("mayusculas");
+    let usarNumeros = document.getElementById("numeros");
+    let usarSimbolos = document.getElementById("simbolos");
+
+    if (usarMayusculas.checked) {
+        caracteres += abcMayusculas;
+    } if (usarNumeros.checked) {
+        caracteres += numeros;
+    } if (usarSimbolos.checked) {
+        caracteres += simbolos;
+    }
 
     let length = parseInt(document.getElementById("length").value);
     let password = "";
-
-    if (usarMayusculas) {
-        caracteres += abcMayusculas;
-    } if (usarNumeros) {
-        caracteres += numeros;
-    } if (usarSimbolos) {
-        caracteres += simbolos;
-    }
 
     for (let i = 0; i < length; i++) {
         let randomIndex = Math.floor(Math.random() * caracteres.length);
