@@ -1,27 +1,29 @@
-const abcMinusculas = "abcdefghijklmnñopqrstuvwxyz";
-const abcMayusculas = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
-const numeros = "0123456789";
-const simbolos = "$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+function generatePassword() {
+    const abcMinusculas = "abcdefghijklmnñopqrstuvwxyz";
+    const abcMayusculas = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    const numeros = "0123456789";
+    const simbolos = "$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
+    let caracteres = abcMinusculas;
 
-function generatePassword(mayusculas, num, sim) {
-    let charset = abcMinusculas;
-
-    if (mayusculas) {
-        charset += abcMayusculas;
-    } if (num) {
-        charset += numeros;
-    } if (sim) {
-        charset += simbolos;
-    }
+    let usarMayusculas = document.getElementById("numeros").checked;
+    let usarNumeros = document.getElementById("simbolos").checked;
+    let usarSimbolos = document.getElementById("mayuscula").checked;
 
     let length = parseInt(document.getElementById("length").value);
     let password = "";
 
-    for (var i = 0; i < length; i++) {
-        var randomIndex = Math.floor(Math.random() * charset.length);
-        password += charset.charAt(randomIndex);
+    if (usarMayusculas) {
+        caracteres += abcMayusculas;
+    } if (usarNumeros) {
+        caracteres += numeros;
+    } if (usarSimbolos) {
+        caracteres += simbolos;
     }
 
-    // return password;
+    for (let i = 0; i < length; i++) {
+        let randomIndex = Math.floor(Math.random() * caracteres.length);
+        password += caracteres.charAt(randomIndex);
+    }
+
     document.getElementById("password").value = password;
 }
